@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - `generate types for pytest`
 
+## [0.1.1] - 2024-03-09
+ 
+### Added
+- support Python 3.8 and 3.9
+
+
 ## [0.1.0] - 2024-03-09
  
 ### Added
