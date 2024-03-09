@@ -1,14 +1,15 @@
 from pathlib import Path
+from typing import Dict
 
 
-def system_type_hints() -> dict[str, str]:
+def system_type_hints() -> Dict[str, str]:
     return {"mocker": "MockerFixture", "requests_mock": "RequestsMock"}
 
 
-def get_hints() -> dict[str, str]:
+def get_hints() -> Dict[str, str]:
     lines = Path("tests/conftest.py").read_text().splitlines()
 
-    type_hints: dict[str, str] = system_type_hints()
+    type_hints: Dict[str, str] = system_type_hints()
     is_fixture = False
     for line in lines:
         if is_fixture and "def " in line:
@@ -31,7 +32,7 @@ def get_hints() -> dict[str, str]:
     return type_hints
 
 
-def set_hints(test_file: Path, type_hints: dict[str, str]) -> None:
+def set_hints(test_file: Path, type_hints: Dict[str, str]) -> None:
     print(str(test_file).center(80, "-"))
     lines = test_file.read_text().splitlines()
 
