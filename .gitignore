@@ -9,3 +9,6 @@
 .coverage
 coverage.xml
 **/*.actual
+
+# release
+dist
