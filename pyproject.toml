@@ -2,13 +2,40 @@
 name = "mypy-helper"
 version = "0.1.0"
 description = ""
-authors = ["eric <zhouweiguang@hotmail.com>"]
+authors = ["eric <eric.websmith@gmail.com>"]
 readme = "README.md"
+
+[tool.poetry.scripts]
+mypy-helper = 'mypy_helper.__main__:mypy_helper'
 
 [tool.poetry.dependencies]
 python = "^3.10"
+click = "^8.1.7"
 
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.4.3"
+mypy = "^1.9.0"
+ruff = "^0.3.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+extend-select = ["I", "N", "C4", "RET", "SIM", "PT", "PTH", "PL", "RUF", "B"]
+extend-ignore = ["PLR0913"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mypy_helper"]
+
+[tool.mypy]
+strict = true
+enable_error_code = ["ignore-without-code"]
+exclude = "examples/.*"  # examples are supported to have errors
+
+[tool.coverage.run]
+source = ['src']
+omit = ['*__main__.py', 'src/mypy_helper/pytest_fixture_type_gen.py']

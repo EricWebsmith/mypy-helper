@@ -1,0 +1,16 @@
+default_stages: [pre-commit]
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.13
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format
+
+  - repo: git@github.com:pre-commit/mirrors-mypy.git
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        args: [ --strict ]
+        additional_dependencies: 
+          - click==8.1.7

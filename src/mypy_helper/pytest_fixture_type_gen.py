@@ -2,10 +2,7 @@ from pathlib import Path
 
 
 def system_type_hints() -> dict[str, str]:
-    return {
-        "mocker": "MockerFixture",
-        "requests_mock": "RequestsMock",
-    }
+    return {"mocker": "MockerFixture", "requests_mock": "RequestsMock"}
 
 
 def get_hints() -> dict[str, str]:
@@ -18,7 +15,7 @@ def get_hints() -> dict[str, str]:
             fixture_start = line.index("def ")
             fixture_end = line.index("(")
             fixture_name = line[fixture_start + 4 : fixture_end]
-            print("fixture_name", fixture_name)  # noqa: T201
+            print("fixture_name", fixture_name)
             arrow_at = line.index("->")
             fixture_type = line[arrow_at + 2 :].strip().strip(":")
             if fixture_type.startswith("Generator["):
@@ -35,28 +32,28 @@ def get_hints() -> dict[str, str]:
 
 
 def set_hints(test_file: Path, type_hints: dict[str, str]) -> None:
-    print(str(test_file).center(80, "-"))  # noqa: T201
+    print(str(test_file).center(80, "-"))
     lines = test_file.read_text().splitlines()
 
     for index, line in enumerate(lines):
         param_hints = {}
         if "def test" in line:
-            print("line", line)  # noqa: T201
+            print("line", line)
             params_start = line.index("(")
             params_end = line.index(")")
             params_str = line[params_start + 1 : params_end]
             params = params_str.split(", ")
             for param_index, param in enumerate(params):
-                print("param", param)  # noqa: T201
+                print("param", param)
                 if ":" in param:
-                    param, hint = param.split(":")
-                    print("param", param, "hint", hint)  # noqa: T201
-                    param_hints[param] = hint
-                    params[param_index] = param
+                    param_no_hint, hint = param.split(":")
+                    print("param", param_no_hint, "hint", hint)
+                    param_hints[param_no_hint] = hint
+                    params[param_index] = param_no_hint
                 else:
                     param_hints[param] = type_hints.get(param, "")
 
-            print("param_hints", param_hints)  # noqa: T201
+            print("param_hints", param_hints)
             params_str = ", ".join(
                 [f"{param}: {param_hints[param]}" if param_hints[param] else param for param in params]
             )
@@ -71,7 +68,7 @@ def set_hints(test_file: Path, type_hints: dict[str, str]) -> None:
 
 if __name__ == "__main__":
     hints = get_hints()
-    print(hints)  # noqa: T201
+    print(hints)
 
     for py_file in Path("tests/unit").rglob("test_*.py"):
         set_hints(py_file, hints)
