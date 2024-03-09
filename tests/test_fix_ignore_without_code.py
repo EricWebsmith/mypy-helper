@@ -7,7 +7,7 @@ from tests.unittest_ext import compare_files
 class TestFixIgnoreWithoutCode(unittest.TestCase):
     def test_consider_replacement(self) -> None:
         fix_ignore_without_code(
-            "examples/simple_example", "examples/simple_example/errors.txt", "fix_ignore_without_code.actual"
+            "examples/simple_example", "examples/simple_example/errors.txt", ".fix_ignore_without_code.actual"
         )
         compare_files(
             "examples/simple_example/example.py.fix_ignore_without_code.expected",

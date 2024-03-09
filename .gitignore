@@ -1,4 +1,11 @@
+# cache
 **/*cache*
+
+# IDE
 .vscode
-**/*.actual
+.idea
+
+# test artifacts
+.coverage
 coverage.xml
+**/*.actual
